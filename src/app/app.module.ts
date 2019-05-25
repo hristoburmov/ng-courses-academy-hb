@@ -1,6 +1,8 @@
-import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,11 +12,18 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UserService } from './user/service/user.service';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { DataService } from './data/data.service';
+import { UserListComponent } from './admin/crud/user/user-list/user-list.component';
+import { UserFormComponent } from './admin/crud/user/user-form/user-form.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'auth/register', component: RegisterComponent },
   { path: 'auth/login', component: LoginComponent },
+  { path: 'admin/users', component: UserListComponent },
+  { path: 'admin/users/:id', component: UserFormComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];
@@ -27,15 +36,20 @@ const appRoutes: Routes = [
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    UserListComponent,
+    UserFormComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    InMemoryWebApiModule.forRoot(DataService),
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    Title
+    UserService
   ],
   bootstrap: [AppComponent]
 })
