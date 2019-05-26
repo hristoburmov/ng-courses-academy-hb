@@ -5,19 +5,22 @@
         <h2 class="text-uppercase text-center">Login</h2>
       </div>
       <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="example@domain.com">
+        <form (ngSubmit)="onLogin()" [formGroup]="userForm">
+          <div *ngIf="showError" class="alert alert-danger">
+            <p class="text-center mb-0">Wrong credentials or user is blocked</p>
           </div>
           <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <label class="font-weight-bold" for="email">Email</label>
+            <input type="email" formControlName="email" class="form-control" id="email" placeholder="example@domain.com">
+          </div>
+          <div class="form-group">
+            <label class="font-weight-bold" for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control" id="password" placeholder="Password">
           </div>
           <hr>
           <div class="btn-group d-flex" role="group">
             <button type="reset" class="btn btn-secondary">Clear</button>
-            <button type="submit" class="btn btn-danger">Login</button>
+            <button type="submit" class="btn btn-danger" [disabled]="!userForm.valid">Login</button>
           </div>
         </form>
       </div>

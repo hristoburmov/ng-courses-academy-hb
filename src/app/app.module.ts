@@ -17,13 +17,19 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DataService } from './data/data.service';
 import { UserListComponent } from './admin/crud/user/user-list/user-list.component';
 import { UserFormComponent } from './admin/crud/user/user-form/user-form.component';
+import { AdminGuard } from './auth/guard/admin.guard';
+import { GuestGuard } from './auth/guard/guest.guard';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'auth/register', component: RegisterComponent },
-  { path: 'auth/login', component: LoginComponent },
-  { path: 'admin/users', component: UserListComponent },
-  { path: 'admin/users/:id', component: UserFormComponent },
+  { path: 'auth', canActivate: [GuestGuard], children:[
+    { path: 'register', component: RegisterComponent },
+    { path: 'login', component: LoginComponent }
+  ]},
+  { path: 'admin', canActivate: [AdminGuard], children: [
+    { path: 'users', component: UserListComponent },
+    { path: 'users/:id', component: UserFormComponent },
+  ]},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];

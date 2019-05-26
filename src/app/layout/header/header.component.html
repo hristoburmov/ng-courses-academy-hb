@@ -2,36 +2,40 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-          <nav class="navbar navbar-expand-lg navbar-dark pl-0 pr-0">
-            <a class="navbar-brand text-uppercase font" routerLink="/home">Courses Academy</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+        <nav class="navbar navbar-expand-lg navbar-dark pl-0 pr-0">
+          <a class="navbar-brand text-uppercase font" routerLink="/home">Courses Academy</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" routerLink="/courses" routerLinkActive="active">Courses</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-                  <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                    <a class="dropdown-item" href="#">Courses</a>
-                    <a class="dropdown-item" routerLink="/admin/users" routerLinkActive="active">Users</a>
-                  </div>
-                </li>
-              </ul>
-              <div class="row">
-                <div class="col-12 d-flex my-2 my-lg-0">
-                  <a class="btn btn-secondary nav-link mr-2" routerLink="/auth/register">Register</a>
-                  <a class="btn btn-danger nav-link" routerLink="/auth/login">Login</a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="/courses" routerLinkActive="active">Courses</a>
+              </li>
+              <li *ngIf="authService.isAdmin()" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+                <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                  <a class="dropdown-item" href="#">Courses</a>
+                  <a class="dropdown-item" routerLink="/admin/users" routerLinkActive="active">Users</a>
                 </div>
+              </li>
+            </ul>
+            <div class="row">
+              <div *ngIf="!authService.isLoggedIn()" class="col-12 d-flex my-2 my-lg-0">
+                <a class="btn btn-secondary nav-link mr-2" routerLink="/auth/register" routerLinkActive="active">Register</a>
+                <a class="btn btn-danger nav-link" routerLink="/auth/login" routerLinkActive="active">Login</a>
+              </div>
+              <div *ngIf="authService.isLoggedIn()" class="col-12 d-flex my-2 my-lg-0">
+                <div class="nav-link text-white mr-2">{{ authService.getName() }}</div>
+                <button type="button" class="btn btn-danger nav-link" (click)="onLogout()">Logout</button>
               </div>
             </div>
-          </nav>
+          </div>
+        </nav>
       </div>
     </div>
   </div>
