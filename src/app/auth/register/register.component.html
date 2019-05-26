@@ -5,23 +5,29 @@
         <h2 class="text-uppercase text-center">Register</h2>
       </div>
       <div class="card-body">
-        <form>
+        <form (ngSubmit)="onRegister()" [formGroup]="userForm">
           <div class="form-group">
-            <label for="name">Name*</label>
-            <input type="text" class="form-control" id="name" placeholder="John Doe">
+            <label [ngClass]="((name.dirty || name.touched) && !name.valid) ? 'text-danger' : ''" class="font-weight-bold" for="name">Name*</label>
+            <span *ngIf="(name.dirty || name.touched) && !name.valid && name.errors.required" class="text-danger ml-1">is required</span>
+            <span *ngIf="(name.dirty || name.touched) && !name.valid && name.errors.minlength" class="text-danger ml-1">must be 3+ characters</span>
+            <input [ngClass]="((name.dirty || name.touched) && !name.valid) ? 'border-danger' : ''" name="name" formControlName="name" type="text" class="form-control" id="name" placeholder="John Doe">
           </div>
           <div class="form-group">
-            <label for="email">Email*</label>
-            <input type="email" class="form-control" id="email" placeholder="example@domain.com">
+            <label [ngClass]="((email.dirty || email.touched) && !email.valid) ? 'text-danger' : ''" class="font-weight-bold" for="email">Email*</label>
+            <span *ngIf="(email.dirty || email.touched) && !email.valid && email.errors.required" class="text-danger ml-1">is required</span>
+            <span *ngIf="(email.dirty || email.touched) && !email.valid && email.errors.email" class="text-danger ml-1">is not valid</span>
+            <input [ngClass]="((email.dirty || email.touched) && !email.valid) ? 'border-danger' : ''" name="email" formControlName="email" type="text" class="form-control" id="email" placeholder="example@domain.com">
           </div>
           <div class="form-group">
-            <label for="password">Password*</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <label [ngClass]="((password.dirty || password.touched) && !password.valid) ? 'text-danger' : ''" class="font-weight-bold" for="password">Password*</label>
+            <span *ngIf="(password.dirty || password.touched) && !password.valid && password.errors.required" class="text-danger ml-1">is required</span>
+            <span *ngIf="(password.dirty || password.touched) && !password.valid && password.errors.minlength" class="text-danger ml-1">must be 8+ characters</span>
+            <input [ngClass]="((password.dirty || password.touched) && !password.valid) ? 'border-danger' : ''" name="password" formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
           </div>
           <hr>
           <div class="btn-group d-flex" role="group">
             <button type="reset" class="btn btn-secondary">Clear</button>
-            <button type="submit" class="btn btn-danger">Register</button>
+            <button type="submit" class="btn btn-danger" [disabled]="!userForm.valid">Register</button>
           </div>
         </form>
       </div>

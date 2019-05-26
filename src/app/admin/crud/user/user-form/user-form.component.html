@@ -2,42 +2,50 @@
     <div class="col-9"><h2 class="text-uppercase">User Form</h2></div>
     <div class="col-3"><a class="btn btn-danger float-right" routerLink="/admin/users">Back</a></div>
   </div>
-<form (ngSubmit)="onSave()" #userForm="ngForm" class="mt-3">
-  <input type="hidden" [(ngModel)]="model.id" name="id">
+<form (ngSubmit)="onSave()" [formGroup]="userForm" class="mt-3">
+  <input type="hidden" formControlName="id" name="id">
   <div class="row">
     <div class="col">
       <div class="form-group">
-        <label for="name">Name*</label>
-        <input [(ngModel)]="model.name" name="name" type="text" class="form-control" id="name" placeholder="John Doe">
+        <label [ngClass]="((name.dirty || name.touched) && !name.valid) ? 'text-danger' : ''" class="font-weight-bold" for="name">Name*</label>
+        <span *ngIf="(name.dirty || name.touched) && !name.valid && name.errors.required" class="text-danger ml-1">is required</span>
+        <span *ngIf="(name.dirty || name.touched) && !name.valid && name.errors.minlength" class="text-danger ml-1">must be 3+ characters</span>
+        <input [ngClass]="((name.dirty || name.touched) && !name.valid) ? 'border-danger' : ''" name="name" formControlName="name" type="text" class="form-control" id="name" placeholder="John Doe">
       </div>
     </div>
     <div class="col">
       <div class="form-group">
-        <label for="email">Email*</label>
-        <input [(ngModel)]="model.email" name="email" type="email" class="form-control" id="email" placeholder="example@domain.com">
+        <label [ngClass]="((email.dirty || email.touched) && !email.valid) ? 'text-danger' : ''" class="font-weight-bold" for="email">Email*</label>
+        <span *ngIf="(email.dirty || email.touched) && !email.valid && email.errors.required" class="text-danger ml-1">is required</span>
+        <span *ngIf="(email.dirty || email.touched) && !email.valid && email.errors.email" class="text-danger ml-1">is not valid</span>
+        <input [ngClass]="((email.dirty || email.touched) && !email.valid) ? 'border-danger' : ''" name="email" formControlName="email" type="text" class="form-control" id="email" placeholder="example@domain.com">
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-6">
       <div class="form-group">
-        <label for="password">Password*</label>
-        <input [(ngModel)]="model.password" name="password" type="password" class="form-control" id="password" placeholder="Password">
+        <label [ngClass]="((password.dirty || password.touched) && !password.valid) ? 'text-danger' : ''" class="font-weight-bold" for="password">Password*</label>
+        <span *ngIf="(password.dirty || password.touched) && !password.valid && password.errors.required" class="text-danger ml-1">is required</span>
+        <span *ngIf="(password.dirty || password.touched) && !password.valid && password.errors.minlength" class="text-danger ml-1">must be 8+ characters</span>
+        <input [ngClass]="((password.dirty || password.touched) && !password.valid) ? 'border-danger' : ''" name="password" formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
       </div>
     </div>
     <div class="col-3">
       <div class="form-group">
-        <label for="role">Role*</label>
-        <select class="custom-select" [(ngModel)]="model.role" name="role" id="role">
+        <label [ngClass]="((role.dirty || role.touched) && !role.valid) ? 'text-danger' : ''" class="font-weight-bold" for="role">Role*</label>
+        <span *ngIf="(role.dirty || role.touched) && !role.valid && role.errors.required" class="text-danger ml-1">is required</span>
+        <select [ngClass]="((role.dirty || role.touched) && !role.valid) ? 'border-danger' : ''" class="custom-select" formControlName="role" name="role" id="role">
+          <option disabled value="">Select role for this user</option>
           <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
         </select>
       </div>
     </div>
     <div class="col-3">
       <div class="form-group">
-        <label for="blocked">Block this user</label>
+        <label class="font-weight-bold" for="blocked">Block this user</label>
         <div class="custom-control custom-checkbox">
-          <input [(ngModel)]="model.isBlocked" name="isBlocked" type="checkbox" class="custom-control-input" id="blocked">
+          <input name="isBlocked" formControlName="isBlocked" type="checkbox" class="custom-control-input" id="blocked">
           <label class="custom-control-label" for="blocked">Blocked</label>
         </div>
       </div>
@@ -46,6 +54,6 @@
   <hr>
   <div class="btn-group d-flex" role="group">
     <button type="reset" class="btn btn-secondary">Clear</button>
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success" [disabled]="!userForm.valid">Save</button>
   </div>
 </form>

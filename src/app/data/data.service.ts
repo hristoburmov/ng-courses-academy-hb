@@ -24,7 +24,7 @@ export class DataService implements InMemoryDbService {
         id: 2,
         name: 'John Doe',
         email: 'johnboi@gmail.com',
-        password: '12345',
+        password: '12345678',
         role: 'USER',
         isBlocked: true
       },
@@ -32,7 +32,7 @@ export class DataService implements InMemoryDbService {
         id: 3,
         name: 'Jim',
         email: 'jimjohnson@abv.bg',
-        password: 'asdf',
+        password: 'asdfpass',
         role: 'USER',
         isBlocked: false
       },
@@ -40,7 +40,7 @@ export class DataService implements InMemoryDbService {
         id: 4,
         name: 'Jenny Penny',
         email: 'jenny.p@hotmail.com',
-        password: 'hehe',
+        password: 'hehepass',
         role: 'ADMIN',
         isBlocked: false
       },
