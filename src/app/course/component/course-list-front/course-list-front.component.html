@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-12"><h2 class="text-uppercase">Courses</h2></div>
+</div>
+
+<ul class="row list-unstyled mt-3">
+  <li *ngFor="let course of courses" class="col-6 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title text-uppercase mb-0">
+          <a *ngIf="authService.isLoggedIn()" routerLink="/courses/{{ course.id }}">{{ course.title }}</a>
+          <span *ngIf="!authService.isLoggedIn()">{{ course.title }}</span>
+        </h4>
+      </div>
+      <div class="card-body">
+        <p>{{ course.description }}</p>
+      </div>
+      <div *ngIf="authService.isLoggedIn()" class="card-footer">
+        <p class="text-center mb-0">Rating: <span class="text-right mb-3 mt-3"><span class="text-warning mr-1">&#9733;</span>{{ course.rating }}</span></p>
+      </div>
+    </div>
+  </li>
+</ul>

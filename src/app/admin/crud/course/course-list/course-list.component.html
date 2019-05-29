@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-9"><h2 class="text-uppercase">Courses</h2></div>
+  <div class="col-3"><a class="btn btn-success float-right" routerLink="/admin/courses/add">Add</a></div>
+</div>
+
+<table class="table table-hover table-striped mt-3">
+  <thead>
+    <tr class="text-uppercase">
+      <th scope="col" class="text-right">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col" class="text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let course of courses">
+      <td class="align-middle text-right">{{ course.id }}</td>
+      <td class="align-middle">{{ course.title }}</td>
+      <td class="align-middle">{{ course.description }}</td>
+      <td class="align-middle text-center">
+        <div class="btn-group">
+          <a class="btn btn-primary" routerLink="/admin/courses/{{ course.id }}">Edit</a>
+          <button type="button" class="btn btn-danger" (click)="onDelete(course.id)">Delete</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

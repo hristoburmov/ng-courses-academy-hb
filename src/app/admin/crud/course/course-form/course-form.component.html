@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-9"><h2 class="text-uppercase">Course Form</h2></div>
+  <div class="col-3"><a class="btn btn-danger float-right" routerLink="/admin/courses">Back</a></div>
+</div>
+<form (ngSubmit)="onSave()" [formGroup]="courseForm" class="mt-3">
+<input type="hidden" formControlName="id" name="id">
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label [ngClass]="((title.dirty || title.touched) && !title.valid) ? 'text-danger' : ''" class="font-weight-bold" for="title">Title*</label>
+      <span *ngIf="(title.dirty || title.touched) && !title.valid && title.errors.required" class="text-danger ml-1">is required</span>
+      <span *ngIf="(title.dirty || title.touched) && !title.valid && title.errors.minlength" class="text-danger ml-1">must be {{ title.errors.minlength.requiredLength }}+ characters</span>
+      <input [ngClass]="((title.dirty || title.touched) && !title.valid) ? 'border-danger' : ''" name="title" formControlName="title" type="text" class="form-control" id="title" placeholder="Angular Development Course">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label [ngClass]="((description.dirty || description.touched) && !description.valid) ? 'text-danger' : ''" class="font-weight-bold" for="description">Description*</label>
+      <span *ngIf="(description.dirty || description.touched) && !description.valid && description.errors.required" class="text-danger ml-1">is required</span>
+      <span *ngIf="(description.dirty || description.touched) && !description.valid && description.errors.minlength" class="text-danger ml-1">must be {{ description.errors.minlength.requiredLength }}+ characters</span>
+      <textarea [ngClass]="((description.dirty || description.touched) && !description.valid) ? 'border-danger' : ''" name="description" formControlName="description" class="form-control" id="description" placeholder="Some kind of course description goes here." rows="5"></textarea>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="btn-group d-flex" role="group">
+  <button type="reset" class="btn btn-secondary">Clear</button>
+  <button type="submit" class="btn btn-success" [disabled]="!courseForm.valid">Save</button>
+</div>
+</form>

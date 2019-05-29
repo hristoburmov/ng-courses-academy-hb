@@ -52,7 +52,10 @@ export class AuthService {
     return this.getUser().role === 'ADMIN';
   }
 
-  // Get Name
+  // Getters
+  getId(): number {
+    return this.getUser().id;
+  }
   getName(): string {
     return this.getUser().name;
   }

@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-9"><h2 class="text-uppercase">{{ course.title }}</h2></div>
+  <div class="col-3">
+    <div class="btn-group float-right">
+      <button type="button" class="btn btn-primary" [disabled]="isEnrolled" (click)="onEnroll()">Enroll</button>
+      <a class="btn btn-danger" routerLink="/courses">Back</a>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col"><span class="d-flex mb-3 mt-3"><span class="text-warning mr-1">&#9733;</span> {{ rating }} (from {{ votes }} votes total)</span></div>
+  <div class="col">
+      <select class="custom-select d-flex mt-2" [disabled]="!isEnrolled || isRatingDisabled" (change)="onRatingChange($event)">
+        <option *ngIf="!isEnrolled" selected disabled>Must be enrolled in course to give a rating</option>
+        <option *ngIf="isEnrolled" selected disabled>Give course a rating</option>
+        <option value="1" [selected]="userRating === 1">Give course 1 star</option>
+        <option value="2" [selected]="userRating === 2">Give course 2 stars</option>
+        <option value="3" [selected]="userRating === 3">Give course 3 stars</option>
+        <option value="4" [selected]="userRating === 4">Give course 4 stars</option>
+        <option value="5" [selected]="userRating === 5">Give course 5 stars</option>
+      </select>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-12">
+    {{ course.description }}
+  </div>
+</div>
